@@ -15,6 +15,7 @@ import { Feather } from "@expo/vector-icons";
 import { getCompanies, getJobs } from "../services/api";
 import { colors } from "../constants/colors";
 import { IMAGE_BASE } from "../constants/app";
+import { bottomInsetPadding } from "../lib/insets";
 import { PageBanner, StickyPageHeader } from "../components/PageBanner";
 
 interface Company {
@@ -103,7 +104,7 @@ export default function CompaniesPage() {
         scrollEventThrottle={16}
         style={styles.scroll}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) + 16 }}
+        contentContainerStyle={{ paddingBottom: bottomInsetPadding(insets, 16) }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

@@ -15,20 +15,8 @@ import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 import { getJobs, getIndustries } from "../../services/api";
 import JobCard from "../../components/JobCard";
 import { colors } from "../../constants/colors";
-
-const ICON_MAP: Record<string, keyof typeof MaterialCommunityIcons.glyphMap> = {
-  Construction: "crane",
-  "Fast Food Restaurant": "food",
-  "Facilities Management": "office-building-outline",
-  "Factory & Manufacturing": "factory",
-  Catering: "silverware-fork-knife",
-  Agriculture: "sprout-outline",
-  Hotel: "bed-outline",
-  "Contracting & Maintenance": "wrench-outline",
-  "Cafés & Coffee Shops": "coffee-outline",
-  "Cafes & Coffee Shops": "coffee-outline",
-  Others: "briefcase-outline",
-};
+import { getIndustryIcon } from "../../constants/industryIcons";
+import { bottomInsetPadding } from "../../lib/insets";
 
 interface Industry {
   id: number;
@@ -110,7 +98,7 @@ export default function IndustryDetail() {
     fetchData();
   };
 
-  const iconName = ICON_MAP[industry?.name ?? ""] ?? "briefcase-outline";
+  const iconName = getIndustryIcon(industry?.name);
 
   if (loading) {
     return (
@@ -149,7 +137,7 @@ export default function IndustryDetail() {
         )}
         scrollEventThrottle={16}
         style={styles.scroll}
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: Math.max(insets.bottom, 16) + 16 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: bottomInsetPadding(insets, 16) }]}
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl

@@ -8,6 +8,8 @@ import {
   StyleSheet,
   RefreshControl,
   TouchableOpacity,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
@@ -158,7 +160,7 @@ export default function Landing() {
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           {
             useNativeDriver: true,
-            listener: (event: any) => {
+            listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
               const y = event.nativeEvent.contentOffset.y;
               const next = y >= 110;
               if (next !== topBarActiveRef.current) {

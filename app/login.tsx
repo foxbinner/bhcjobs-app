@@ -21,6 +21,7 @@ import { Feather } from "@expo/vector-icons";
 import { forgotPassword, login } from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
 import { colors } from "../constants/colors";
+import { bottomInsetPadding } from "../lib/insets";
 
 export default function Login() {
   const router = useRouter();
@@ -134,7 +135,7 @@ export default function Login() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView
           style={styles.scroll}
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: Math.max(insets.bottom, 16) + 20 }]}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: bottomInsetPadding(insets, 20) }]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >

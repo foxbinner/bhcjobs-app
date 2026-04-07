@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import {
   View,
-  Text,
   Image,
   Animated,
   StyleSheet,
   Dimensions,
+  Platform,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import * as NavigationBar from "expo-navigation-bar";
 import {
   useFonts,
   Inter_400Regular,
@@ -25,24 +25,6 @@ import { AuthProvider } from "../contexts/AuthContext";
 const { width } = Dimensions.get("window");
 const LOGO = require("../assets/website-icon-nightmode.png");
 
-function NavBarBackground() {
-  const insets = useSafeAreaInsets();
-  if (insets.bottom === 0) return null;
-  return (
-    <View
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: insets.bottom,
-        backgroundColor: colors.white,
-        zIndex: 999,
-      }}
-    />
-  );
-}
-
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -53,6 +35,14 @@ export default function RootLayout() {
   });
 
   const [showSplash, setShowSplash] = useState(true);
+
+  // Paint Android system navigation bar buttons dark so they read on the
+  // white root background. edgeToEdgeEnabled forces the strip transparent,
+  // so the white root <View> below shows through.
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    NavigationBar.setButtonStyleAsync("dark").catch(() => {});
+  }, []);
 
   // Animation values
   const logoScale = useRef(new Animated.Value(0.72)).current;
@@ -185,31 +175,42 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <StatusBar style="light" />
-      <NavBarBackground />
-      <Stack
-        screenOptions={{ headerShown: false, animation: "slide_from_right" }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="login" />
-        <Stack.Screen name="register" />
-        <Stack.Screen name="profile" />
-        <Stack.Screen name="saved-jobs" />
-        <Stack.Screen name="jobs" options={{ animation: "slide_from_right" }} />
-        <Stack.Screen
-          name="industries"
-          options={{ animation: "slide_from_right" }}
-        />
-        <Stack.Screen
-          name="companies"
-          options={{ animation: "slide_from_right" }}
-        />
-        <Stack.Screen name="job/[id]" />
-        <Stack.Screen name="industry/[id]" />
-        <Stack.Screen name="company/[id]" />
-      </Stack>
+      <View style={appRoot.root}>
+        <Stack
+          screenOptions={{ headerShown: false, animation: "slide_from_right" }}
+        >
+          <Stack.Screen name="index" />
+          <Stack.Screen name="login" />
+          <Stack.Screen name="register" />
+          <Stack.Screen name="profile" />
+          <Stack.Screen name="saved-jobs" />
+          <Stack.Screen
+            name="jobs"
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="industries"
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="companies"
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen name="job/[id]" />
+          <Stack.Screen name="industry/[id]" />
+          <Stack.Screen name="company/[id]" />
+        </Stack>
+      </View>
     </AuthProvider>
   );
 }
+
+const appRoot = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+});
 
 const splash = StyleSheet.create({
   root: {

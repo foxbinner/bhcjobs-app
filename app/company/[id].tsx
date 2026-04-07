@@ -17,6 +17,7 @@ import { getJobs, getCompanies } from "../../services/api";
 import JobCard from "../../components/JobCard";
 import { colors } from "../../constants/colors";
 import { IMAGE_BASE } from "../../constants/app";
+import { bottomInsetPadding } from "../../lib/insets";
 
 interface Company {
   id: number;
@@ -140,7 +141,7 @@ export default function CompanyDetail() {
         )}
         scrollEventThrottle={16}
         style={styles.scroll}
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: Math.max(insets.bottom, 16) + 16 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: bottomInsetPadding(insets, 16) }]}
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl

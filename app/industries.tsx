@@ -15,21 +15,9 @@ import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { getIndustries, getJobs } from "../services/api";
 import { colors } from "../constants/colors";
 import { IMAGE_BASE } from "../constants/app";
+import { getIndustryIcon } from "../constants/industryIcons";
+import { bottomInsetPadding } from "../lib/insets";
 import { PageBanner, StickyPageHeader } from "../components/PageBanner";
-
-const ICON_MAP: Record<string, keyof typeof MaterialCommunityIcons.glyphMap> = {
-  Construction: "crane",
-  "Fast Food Restaurant": "food",
-  "Facilities Management": "office-building-outline",
-  "Factory & Manufacturing": "factory",
-  Catering: "silverware-fork-knife",
-  Agriculture: "sprout-outline",
-  Hotel: "bed-outline",
-  "Contracting & Maintenance": "wrench-outline",
-  "Cafés & Coffee Shops": "coffee-outline",
-  "Cafes & Coffee Shops": "coffee-outline",
-  Others: "briefcase-outline",
-};
 
 interface Industry {
   id: number;
@@ -129,7 +117,7 @@ export default function IndustriesPage() {
         scrollEventThrottle={16}
         style={styles.scroll}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) + 16 }}
+        contentContainerStyle={{ paddingBottom: bottomInsetPadding(insets, 16) }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -175,7 +163,7 @@ export default function IndustriesPage() {
         ) : (
           <View style={styles.content}>
             {activeIndustries.map((industry) => {
-              const iconName = ICON_MAP[industry.name] ?? "briefcase-outline";
+              const iconName = getIndustryIcon(industry.name);
               const jobData = industryJobData.get(industry.id);
               const visibleImages = (jobData?.companyImages ?? []).slice(0, 3);
               return (

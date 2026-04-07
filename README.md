@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/website-logo.png" alt="BHCJobs Logo" width="120" />
+<img src="assets/website-logo.png" alt="BHCJobs Logo" width="80" />
 
-# BHCJobs
+# BHCJobs App
 
 **A React Native job portal for overseas job seekers — built with Expo Router**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com)
 [![Expo](https://img.shields.io/badge/expo-54-black.svg)](https://expo.dev/)
 [![React Native](https://img.shields.io/badge/react%20native-0.81-61dafb.svg)](https://reactnative.dev/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.9-3178c6.svg)](https://www.typescriptlang.org/)
@@ -22,6 +22,8 @@
 
 BHCJobs is a mobile job portal that connects overseas job seekers with employers. It pulls live data from the BHCJobs API to display industries, companies, and job listings, and provides a full authentication flow — registration, login, and OTP phone verification. The app is built with TypeScript, Expo Router, and a clean component architecture across 13+ screens.
 
+**What's new in 1.1.0** — fixed the Android system navigation bar so it renders white with dark icons instead of the default translucent grey, code-style polish across the codebase, smaller bundle (removed unused `expo-blur`), and shared modules for industry icons and safe-area insets.
+
 | Field      | Value                             |
 | ---------- | --------------------------------- |
 | Platform   | React Native / Expo               |
@@ -29,7 +31,7 @@ BHCJobs is a mobile job portal that connects overseas job seekers with employers
 | Language   | TypeScript                        |
 | Package ID | `com.foxbinner.bhcjobs`           |
 | API Origin | `https://dev.bhcjobs.com`         |
-| Storage    | `https://api.bhcjobs.com/storage` |
+| Storage    | `https://dev.bhcjobs.com/storage` |
 | License    | MIT                               |
 
 ---
@@ -54,7 +56,7 @@ Inspired by [bhcjobs.com](https://bhcjobs.com/) — dark hero, brand blue, and a
 - **Deep browsing** — dedicated detail screens for jobs, companies, and industries
 - **Profile screen** — user account info fetched from the API
 - **Reusable component library** — cards, banners, and shared UI elements used across all screens
-- **Polished UI** — Inter font, linear gradients, expo-blur, safe-area support, and edge-to-edge Android layout
+- **Polished UI** — Inter font, linear gradients, safe-area support, and a properly-themed edge-to-edge Android layout
 
 ---
 
@@ -80,23 +82,23 @@ Inspired by [bhcjobs.com](https://bhcjobs.com/) — dark hero, brand blue, and a
 
 ## Tech Stack
 
-| Category   | Library / Tool                                      |
-| ---------- | --------------------------------------------------- |
-| Framework  | React Native 0.81, Expo 54                          |
-| Routing    | Expo Router 6                                       |
-| Language   | TypeScript 5.9                                      |
-| HTTP       | Axios                                               |
-| Storage    | AsyncStorage                                        |
-| UI / Icons | @expo/vector-icons, expo-linear-gradient, expo-blur |
-| Fonts      | Inter (via @expo-google-fonts/inter)                |
-| Build      | EAS Build                                           |
+| Category   | Library / Tool                           |
+| ---------- | ---------------------------------------- |
+| Framework  | React Native 0.81, Expo 54               |
+| Routing    | Expo Router 6                            |
+| Language   | TypeScript 5.9                           |
+| HTTP       | Axios                                    |
+| Storage    | AsyncStorage                             |
+| UI / Icons | @expo/vector-icons, expo-linear-gradient |
+| Fonts      | Inter (via @expo-google-fonts/inter)     |
+| Build      | EAS Build                                |
 
 ---
 
 ## API Integration
 
 **Base URL:** `https://dev.bhcjobs.com`  
-**Storage URL:** `https://api.bhcjobs.com/storage`
+**Storage URL:** `https://dev.bhcjobs.com/storage`
 
 All requests are made via an Axios instance that automatically attaches an `Authorization: Bearer <token>` header from AsyncStorage when a session is active.
 
@@ -168,7 +170,7 @@ The app works out of the box with the default API URLs. To override them, create
 
 ```env
 EXPO_PUBLIC_API_ORIGIN=https://dev.bhcjobs.com
-EXPO_PUBLIC_STORAGE_BASE_ORIGIN=https://api.bhcjobs.com/storage
+EXPO_PUBLIC_STORAGE_BASE_ORIGIN=https://dev.bhcjobs.com/storage
 ```
 
 ---

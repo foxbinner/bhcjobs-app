@@ -13,6 +13,7 @@ import { Feather } from "@expo/vector-icons";
 import { useAuth } from "../contexts/AuthContext";
 import { getJobs } from "../services/api";
 import { colors } from "../constants/colors";
+import { bottomInsetPadding } from "../lib/insets";
 import JobCard from "../components/JobCard";
 import { PageBanner, StickyPageHeader } from "../components/PageBanner";
 
@@ -66,7 +67,7 @@ export default function SavedJobsPage() {
         style={styles.scroll}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: Math.max(insets.bottom, 16) + 16 },
+          { paddingBottom: bottomInsetPadding(insets, 16) },
         ]}
         showsVerticalScrollIndicator={false}
         onScroll={Animated.event(

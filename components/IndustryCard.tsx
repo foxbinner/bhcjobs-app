@@ -2,20 +2,7 @@ import { TouchableOpacity, Text, StyleSheet, View, Image } from "react-native";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
 import { IMAGE_BASE } from "../constants/app";
-
-const ICON_MAP: Record<string, keyof typeof MaterialCommunityIcons.glyphMap> = {
-  Construction: "crane",
-  "Fast Food Restaurant": "food",
-  "Facilities Management": "office-building-outline",
-  "Factory & Manufacturing": "factory",
-  Catering: "silverware-fork-knife",
-  Agriculture: "sprout-outline",
-  Hotel: "bed-outline",
-  "Contracting & Maintenance": "wrench-outline",
-  "Cafés & Coffee Shops": "coffee-outline",
-  "Cafes & Coffee Shops": "coffee-outline",
-  Others: "briefcase-outline",
-};
+import { getIndustryIcon } from "../constants/industryIcons";
 
 interface Props {
   industry: {
@@ -29,7 +16,7 @@ interface Props {
 }
 
 export default function IndustryCard({ industry, active, onPress, companyImages = [] }: Props) {
-  const iconName = ICON_MAP[industry.name] ?? "briefcase-outline";
+  const iconName = getIndustryIcon(industry.name);
   const visibleImages = companyImages.slice(0, 3);
   const count = industry.jobs_count ?? 0;
 

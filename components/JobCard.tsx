@@ -43,10 +43,12 @@ interface Job {
     id?: number;
     job_title?: string;
     title?: string;
+    name?: string;
     company_name?: string;
     industry_name?: string;
     country?: { name?: string };
     company?: { image?: string; name?: string } | null;
+    industry?: { name?: string } | null;
     min_salary?: number;
     max_salary?: number;
     currency?: string;
