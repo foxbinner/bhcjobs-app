@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "BHCJobs",
+    "slug": "bhcjobs",
+    "scheme": "bhcjobs",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/website-logo.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A1628"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon-circle.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.foxbinner.bhcjobs"
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "83708a15-b167-40ee-8552-0ab91af442d1"
+      }
+    }
+  }
+}
