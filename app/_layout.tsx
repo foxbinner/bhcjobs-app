@@ -7,6 +7,7 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as NavigationBar from "expo-navigation-bar";
@@ -36,9 +37,9 @@ export default function RootLayout() {
 
   const [showSplash, setShowSplash] = useState(true);
 
-  // Paint Android system navigation bar buttons dark so they read on the
-  // white root background. edgeToEdgeEnabled forces the strip transparent,
-  // so the white root <View> below shows through.
+  // On Android edge-to-edge, the nav bar is transparent — content behind it
+  // shows through. Set dark icons so they read on the white NavBarWhitePaint
+  // overlay rendered after the Stack below.
   useEffect(() => {
     if (Platform.OS !== "android") return;
     NavigationBar.setButtonStyleAsync("dark").catch(() => {});
@@ -200,8 +201,35 @@ export default function RootLayout() {
           <Stack.Screen name="industry/[id]" />
           <Stack.Screen name="company/[id]" />
         </Stack>
+        {/* Rendered after Stack so it appears above all screen content.
+            On Android 15+ edgeToEdgeEnabled forces the nav bar transparent —
+            the app content behind it shows through. This overlay paints that
+            strip white. elevation ensures it layers above screen views. */}
+        <NavBarWhitePaint />
       </View>
     </AuthProvider>
+  );
+}
+
+// Paints the Android system navigation bar region white.
+// Must render after (above) the Stack so it layers above screen content.
+function NavBarWhitePaint() {
+  const insets = useSafeAreaInsets();
+  if (Platform.OS !== "android" || insets.bottom === 0) return null;
+  return (
+    <View
+      pointerEvents="none"
+      style={{
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: insets.bottom,
+        backgroundColor: colors.white,
+        elevation: 100,
+        zIndex: 9999,
+      }}
+    />
   );
 }
 
